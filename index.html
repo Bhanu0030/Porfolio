@@ -551,6 +551,12 @@
       .hero-subtitle { font-size: 1rem; }
       .section-title { font-size: 2rem; }
     }
+  @keyframes fadeSwitch {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-10px); }
+}  
   </style>
 </head>
 <body>
@@ -579,7 +585,7 @@
     <div class="profile-image">
       <img src="pf.jpg" alt="Bhanuprakash Aadi" />
     </div>
-    <h1 class="hero-title">Bhanuprakash Aadi</h1>
+    <h1 class="hero-title" id="animated-name">Bhanuprakash Aadi</h1>
     <p class="hero-subtitle">Cybersecurity Graduate Student | SOC Analyst & Penetration Tester</p>
     <div class="social-links">
       <a href="mailto:bhanuprakashaadi@gmail.com" class="social-link neon-glow">
@@ -828,5 +834,33 @@
       }
     }
   </script>
+  <script>
+  const nameElement = document.getElementById('animated-name');
+  const names = [
+    "Bhanuprakash Aadi",          // English
+    "భాను ప్రకాష్ ఆడి",           // Telugu
+    "भानुप्रकाश आडी",             // Hindi
+    "பானுப்ரகாஷ் ஆடி",             // Tamil
+    "バーヌプラカーシュ・アーディ",  // Japanese
+    "巴努普拉卡什·阿迪",            // Chinese (Simplified)
+    "바누프라카시 아디",             // Korean
+    "Бханупракаш Аади"             // Russian
+  ];
+
+  let index = 0;
+
+  function cycleNames() {
+    nameElement.style.animation = 'none';
+    // Trigger reflow to restart animation
+    void nameElement.offsetWidth;
+    nameElement.style.animation = 'fadeSwitch 2s ease-in-out';
+
+    nameElement.textContent = names[index];
+    index = (index + 1) % names.length;
+  }
+
+  // Start cycling names every 3 seconds
+  setInterval(cycleNames, 3000);
+</script>
 </body>
 </html>
